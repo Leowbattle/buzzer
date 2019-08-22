@@ -1,0 +1,49 @@
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Buzzer</title>
+</head>
+<script src="rtttl.js"></script>
+<script>
+function play() {
+	const parseFile = f => f.split("\n").map(x => x.split(",").map(y => parseFloat(y)));
+	const getTotalLength = f => f.map(x => x[0]).reduce((a, y) => a + y) / 1000;
+
+	let audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+	let oscillator = audioCtx.createOscillator();
+	oscillator.type = "square";
+
+	const parsed = parseFile(document.getElementById("input").value);
+
+	let current = 0;
+	parsed.forEach(x => {
+		oscillator.frequency.setValueAtTime(x[1], current);
+		current += x[0] / 1000;
+	});
+
+	oscillator.connect(audioCtx.destination);
+	oscillator.start();
+	oscillator.stop(audioCtx.currentTime + getTotalLength(parsed));
+}
+
+function convertRTTTL() {
+	let rtttl = parse(document.getElementById("rtttlInput").value);
+	let text = "";
+	for (let note of rtttl.melody) {
+		text += `${note.duration},${note.frequency}\n`;
+	}
+	document.getElementById("input").value = text.trim();
+}
+</script>
+<body>
+	<button id="play" onclick="play()">Play</button>
+	<br>
+	<textarea name="input" id="input" cols="15" rows="50"></textarea>
+	<br>
+	<button id="rtttl" onclick="convertRTTTL()">Convert RTTTL</button>
+	<br>
+	<textarea name="rtttlInput" id="rtttlInput" cols="200" rows="4"></textarea>
+</body>
+</html>
