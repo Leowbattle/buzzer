@@ -32,7 +32,7 @@ function convertRTTTL() {
 	let rtttl = parse(document.getElementById("rtttlInput").value);
 	let text = "";
 	for (let note of rtttl.melody) {
-		text += `${note.duration},${note.frequency}\n`;
+		text += `${Math.round(note.duration)},${Math.round(note.frequency)}\n`;
 	}
 	document.getElementById("input").value = text.trim();
 }
