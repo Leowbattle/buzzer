@@ -277,12 +277,14 @@ function convertRTTTL() {
 }
 </script>
 <body>
-	<button id="play" onclick="play()">Play</button> <button id="stop" onclick="stop()">Stop</button>
-	<br>
-	<textarea name="input" id="input" cols="15" rows="50"></textarea>
-	<br>
-	<button id="rtttl" onclick="convertRTTTL()">Convert RTTTL</button> <div id="error"></div>
-	<br>
-	<textarea name="rtttlInput" id="rtttlInput" cols="200" rows="4"></textarea>
+	<div style="border-color: black; border-width: 10px; border-style: solid;">
+		<button id="rtttl" onclick="convertRTTTL()">Convert RTTTL</button> <div id="error"></div>
+		<textarea name="rtttlInput" id="rtttlInput" cols="200" rows="4"></textarea>
+	</div>
+	<div style="border-color: blue; border-width: 10px; border-style: solid;">
+		<button id="play" onclick="play()">Play</button> <button id="stop" onclick="stop()">Stop</button>
+		<br>
+		<textarea name="input" id="input" cols="15" rows="50"></textarea>
+	</div>
 </body>
 </html>
