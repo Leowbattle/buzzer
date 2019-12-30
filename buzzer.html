@@ -226,6 +226,12 @@ function _calculateDuration(beatEvery, noteDuration, isDotted) {
 	let playing = false;
 	let oscillator;
 function play() {
+	if (playing) {
+		return;
+	}
+	console.log("Begin playing");
+	playing = true;
+
 	const parseFile = f => f.split("\n").map(x => x.split(",").map(y => parseFloat(y)));
 	const getTotalLength = f => f.map(x => x[0]).reduce((a, y) => a + y) / 1000;
 
@@ -240,12 +246,6 @@ function play() {
 		oscillator.frequency.setValueAtTime(x[1], current);
 		current += x[0] / 1000;
 	});
-
-	if (playing) {
-		return;
-	}
-	console.log("Begin playing");
-	playing = true;
 
 	oscillator.connect(audioCtx.destination);
 	oscillator.start();
@@ -269,8 +269,7 @@ function convertRTTTL() {
 			text += `${Math.round(note.duration)},${Math.round(note.frequency)}\n`;
 		}
 		document.getElementById("input").value = text.trim();
-		error.innerText = "Valid RTTTL";
-		error.style.color = "limegreen";
+		error.innerText = "";
 	} catch {
 		error.innerText = "Invalid RTTTL";
 		error.style.color = "red";
