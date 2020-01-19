@@ -1,0 +1,10 @@
+http://www.coopermedc.com/resources/sounder-tones: "Swedish fire alarm" tone #16 sounds good as an alarm.
+
+200,660
+200,0
+200,660
+200,0
+200,660
+200,0
+200,660
+200,0
